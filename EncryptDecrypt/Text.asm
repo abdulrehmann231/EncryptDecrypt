@@ -35,6 +35,16 @@ INCLUDE Irvine32.inc
     loginSuccessMsg BYTE "Login successful! ", 0dh, 0ah, 0
     loginFail   BYTE "Invalid email or password!", 0dh, 0ah, 0
     
+    ;printing
+    printName BYTE "Name : ",0
+    printEmail BYTE "Email : ",0
+    printAge BYTE "Age : ",0
+    printContact BYTE "Contact : ",0
+    printAddress BYTE "Address : ",0
+    printOrigPass BYTE "Orignal Password : ",0
+    printEncPass BYTE "Encrypted Password : ",0
+
+
     ; File handling
     fileName    BYTE "users.txt", 0
     fileHandle  DWORD ?
@@ -868,11 +878,16 @@ EmailMatched:
     mov edx, offset userFoundMsg
     call writestring
 
+
     ; Print username
+    mov edx,OFFSET printName
+    call writestring
     mov edx, OFFSET username
     call WriteString
     call Crlf
 
+    mov edx,OFFSET printEmail
+    call writestring
     mov edx,offset tempemail
     call WriteString
     call Crlf
@@ -884,23 +899,34 @@ EmailMatched:
     inc ecx ; Skip delimiter
 
     ; Print age
+    mov edx,OFFSET printAge
+    call writestring
     mov edx, OFFSET age
     call PrintField
 
     ; Print contact
+    mov edx,OFFSET printContact
+    call writestring
     mov edx, OFFSET contact
     call PrintField
 
     ; Print address
+    mov edx,OFFSET printAddress
+    call writestring
     mov edx, OFFSET address
     call PrintField
 
     ; Print encrypted password and exit immediately
+    mov edx,OFFSET printOrigpass
+    call writestring
     mov edx, OFFSET tempPass
     call PrintField
 
+    mov edx,OFFSET printencpass
+    call writestring
     mov edx, OFFSET password
     call writestring
+    call crlf
     jmp Cleanup
 
 PrintField:
