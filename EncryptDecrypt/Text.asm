@@ -917,12 +917,12 @@ EmailMatched:
     call PrintField
 
     ; Print encrypted password and exit immediately
-    mov edx,OFFSET printOrigpass
+    mov edx,OFFSET printencpass
     call writestring
     mov edx, OFFSET tempPass
     call PrintField
 
-    mov edx,OFFSET printencpass
+    mov edx,OFFSET printorigpass
     call writestring
     mov edx, OFFSET password
     call writestring
